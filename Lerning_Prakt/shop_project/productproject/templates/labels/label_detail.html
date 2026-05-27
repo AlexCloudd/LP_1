@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ label.name }} — VINYL</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header { 
+            background: #000; 
+            padding: 20px 0; 
+            text-align: center; 
+            border-bottom: 1px solid #333; 
+        }
+
+        nav a { 
+            color: #fff; 
+            margin: 0 18px; 
+            text-decoration: none; 
+            font-size: 1.05rem;
+        }
+
+        nav a:hover { 
+            color: #aaa; 
+        }
+
+        .container { 
+            max-width: 900px; 
+            margin: 60px auto; 
+            padding: 20px; 
+            text-align: center;
+            /* Контент не растягивается */
+        }
+
+        .logo img { 
+            width: 250px; 
+            height: 250px; 
+            object-fit: contain; 
+            border-radius: 8px; 
+        }
+
+        h1 {
+            margin: 25px 0 15px 0;
+            font-size: 2.5rem;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #666;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: auto; /* Прижимает футер к низу */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'productproject:label_list' %}">← Назад к лейблам</a>
+            <a href="{% url 'productproject:home' %}">Главная</a>
+            <a href="{% url 'productproject:plate_list' %}">Каталог</a>
+            <a href="{% url 'productproject:artist_list' %}">Исполнители</a>
+            <a href="{% url 'productproject:cart' %}">Корзина</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        {% if label.logo %}
+            <div class="logo">
+                <img src="{{ label.logo.url }}" alt="{{ label.name }}">
+            </div>
+        {% endif %}
+        
+        <h1>{{ label.name }}</h1>
+        <p>{{ label.description|linebreaks }}</p>
+        <p><strong>Страна:</strong> {{ label.country|default:"—" }}</p>
+    </div>
+
+    <footer>
+        © 2026 VINYL STORE — Все права защищены
+    </footer>
+</body>
+</html>

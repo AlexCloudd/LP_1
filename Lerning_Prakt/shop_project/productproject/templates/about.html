@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О компании — VINYL</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html, body { 
+            height: 100%;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            line-height: 1.7;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header { 
+            background: #000; 
+            padding: 20px 0; 
+            text-align: center; 
+            border-bottom: 1px solid #333; 
+            flex-shrink: 0;
+        }
+        
+        nav a { 
+            color: #fff; 
+            margin: 0 20px; 
+            text-decoration: none; 
+        }
+        
+        nav a:hover {
+            color: #ddd;
+        }
+        
+        .container { 
+            max-width: 900px; 
+            margin: 60px auto; 
+            padding: 0 20px; 
+            flex: 0 0 auto; /* Не растягивается */
+        }
+        
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            border-bottom: 1px solid #333;
+            padding-bottom: 20px;
+        }
+        
+        .container p {
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+        
+        footer {
+            background: #0a0a0a;
+            color: #666;
+            text-align: center;
+            padding: 14px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: auto; /* Прижимает футер к низу */
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'productproject:home' %}">Главная</a>
+            <a href="{% url 'productproject:about' %}">О компании</a>
+            <a href="{% url 'productproject:plate_list' %}">Товары</a>
+            <a href="{% url 'productproject:artist_list' %}">Исполнители</a>
+            <a href="{% url 'productproject:cart' %}">Корзина</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>О нас</h1>
+        <p>Мы — специализированный магазин виниловых пластинок. Наша цель — предоставлять коллекционерам и меломанам качественные издания в отличном состоянии.</p>
+        <p>Каждая пластинка проверяется перед продажей. Мы ценим звучание и эстетику винила.</p>
+        <p>В нашем ассортименте вы найдёте как классические рок-альбомы, так и современные джазовые записи, редкие коллекционные издания и новинки.</p>
+        <p>Доставка осуществляется по всей стране. Мы гарантируем бережную упаковку и быструю обработку заказов.</p>
+    </div>
+
+    <footer>
+        © 2026 VINYL STORE — Все права защищены
+    </footer>
+</body>
+</html>

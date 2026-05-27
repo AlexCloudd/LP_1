@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ category.name }}</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            min-height: 100vh;           /* Важно */
+            display: flex;
+            flex-direction: column;
+        }
+
+        header { 
+            background: #000; 
+            padding: 15px 0; 
+            border-bottom: 1px solid #333; 
+        }
+
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            align-items: center; 
+            gap: 25px; 
+        }
+
+        nav a { 
+            color: #ccc; 
+            text-decoration: none; 
+        }
+        nav a:hover { color: #fff; }
+        .back-link { color: #aaa; font-size: 1.1rem; }
+
+        .container { 
+            max-width: 1200px; 
+            margin: 50px auto; 
+            padding: 0 20px; 
+            /* Без flex: 1 — контент не будет растягиваться */
+        }
+
+        h1 { 
+            margin-bottom: 25px; 
+            border-bottom: 1px solid #333; 
+            padding-bottom: 15px; 
+            font-size: 2.2rem;
+        }
+
+        .description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 40px;
+            color: #bbb;
+        }
+
+        .plates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .plate-card {
+            background: #1a1a1a;
+            border-radius: 8px;
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+
+        .plate-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .plate-card img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+        }
+
+        .plate-info {
+            padding: 15px;
+        }
+
+        .plate-info h3 {
+            margin-bottom: 8px;
+            font-size: 1.1rem;
+        }
+
+        .price {
+            color: #4ade80;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin: 8px 0;
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #666;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: auto;        /* Прижимает футер вниз */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'productproject:category_list' %}" class="back-link">← Назад к категориям</a>
+            <a href="{% url 'productproject:home' %}">Главная</a>
+            <a href="{% url 'productproject:plate_list' %}">Каталог</a>
+            <a href="{% url 'productproject:artist_list' %}">Исполнители</a>
+            <a href="{% url 'productproject:cart' %}">Корзина</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>{{ category.name }}</h1>
+        
+        {% if category.description %}
+            <div class="description">
+                {{ category.description|linebreaks }}
+            </div>
+        {% endif %}
+
+        <h2 style="margin-bottom: 20px; color: #ccc;">Пластинки в категории:</h2>
+
+        <div class="plates-grid">
+            {% for plate in category.plate_set.all %}
+                <div class="plate-card">
+                    {% if plate.photo %}
+                        <img src="{{ plate.photo.url }}" alt="{{ plate.name }}">
+                    {% else %}
+                        <div style="height: 280px; background: #222; display: flex; align-items: center; justify-content: center; color: #555;">
+                            Нет изображения
+                        </div>
+                    {% endif %}
+                    <div class="plate-info">
+                        <h3>
+                            <a href="{% url 'productproject:plate_detail' plate.pk %}" style="color: #e0e0e0; text-decoration: none;">
+                                {{ plate.name }}
+                            </a>
+                        </h3>
+                        {% if plate.artist %}
+                            <p style="color: #888; margin-bottom: 8px;">{{ plate.artist }}</p>
+                        {% endif %}
+                        <p class="price">{{ plate.price }} ₽</p>
+                    </div>
+                </div>
+            {% empty %}
+                <p style="grid-column: 1 / -1; text-align: center; padding: 40px; color: #777;">
+                    В этой категории пока нет пластинок.
+                </p>
+            {% endfor %}
+        </div>
+    </div>
+
+    <footer>
+        © 2026 VINYL STORE — Все права защищены
+    </footer>
+</body>
+</html>

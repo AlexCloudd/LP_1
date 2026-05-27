@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Корзина — VINYL</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+        
+        html, body { 
+            height: 100%;
+        }
+        
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            display: flex;
+            flex-direction: column;
+        }
+        
+        header { 
+            background: #000; 
+            padding: 18px 0; 
+            text-align: center; 
+            border-bottom: 1px solid #333; 
+            flex-shrink: 0;
+        }
+
+        nav { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 0 20px; 
+            display: flex; 
+            justify-content: center; 
+            gap: 25px; 
+        }
+
+        nav a { 
+            color: #fff; 
+            text-decoration: none; 
+            font-size: 1.05rem; 
+        }
+
+        nav a:hover { 
+            color: #aaa; 
+        }
+
+        .container { 
+            max-width: 800px; 
+            margin: 100px auto; 
+            padding: 20px; 
+            text-align: center; 
+            flex: 0 0 auto; /* Не растягивается */
+        }
+
+        h1 { 
+            font-size: 2.8rem; 
+            margin-bottom: 30px; 
+        }
+
+        .empty-text { 
+            font-size: 1.4rem; 
+            color: #888; 
+            margin-bottom: 50px; 
+        }
+
+        .btn {
+            display: inline-block;
+            background: #333;
+            color: #fff;
+            padding: 14px 35px;
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 1.1rem;
+            margin-top: 20px;
+            transition: background 0.3s ease;
+        }
+        
+        .btn:hover { 
+            background: #555; 
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #666;
+            text-align: center;
+            padding: 14px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: auto; /* Прижимает футер к низу */
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'productproject:home' %}">Главная</a>
+            <a href="{% url 'productproject:about' %}">О компании</a>
+            <a href="{% url 'productproject:plate_list' %}">Товары</a>
+            <a href="{% url 'productproject:artist_list' %}">Исполнители</a>
+            <a href="{% url 'productproject:cart' %}">Корзина</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h1>Корзина</h1>
+        <p class="empty-text">Ваша корзина пока пуста</p>
+        <a href="{% url 'productproject:plate_list' %}" class="btn">Перейти в каталог</a>
+    </div>
+
+    <footer>
+        © 2026 VINYL STORE — Все права защищены
+    </footer>
+</body>
+</html>

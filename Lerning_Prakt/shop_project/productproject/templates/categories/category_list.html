@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Категории — VINYL</title>
+    <style>
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
+
+        body { 
+            font-family: Arial, sans-serif; 
+            background: #0f0f0f; 
+            color: #e0e0e0; 
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header { 
+            background: #000; 
+            padding: 20px 0; 
+            text-align: center; 
+            border-bottom: 1px solid #333; 
+        }
+
+        nav a { 
+            color: #fff; 
+            margin: 0 18px; 
+            text-decoration: none; 
+            font-size: 1.05rem;
+        }
+
+        nav a:hover { 
+            color: #aaa; 
+        }
+
+        h1 { 
+            text-align: center; 
+            margin: 50px 0 40px; 
+        }
+
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 20px;
+            /* flex: 1 убран — контент не растягивается */
+        }
+
+        .card { 
+            background: #1a1a1a; 
+            border-radius: 8px; 
+            padding: 30px 20px; 
+            text-align: center; 
+        }
+
+        footer {
+            background: #0a0a0a;
+            color: #666;
+            text-align: center;
+            padding: 16px 0;
+            font-size: 0.9rem;
+            border-top: 1px solid #222;
+            margin-top: auto; /* Прижимает футер к низу */
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+            <a href="{% url 'productproject:home' %}">Главная</a>
+            <a href="{% url 'productproject:about' %}">О компании</a>
+            <a href="{% url 'productproject:plate_list' %}">Каталог</a>
+            <a href="{% url 'productproject:artist_list' %}">Исполнители</a>
+            <a href="{% url 'productproject:category_list' %}">Категории</a>
+            <a href="{% url 'productproject:cart' %}">Корзина</a>
+        </nav>
+    </header>
+
+    <h1>Категории товаров</h1>
+    
+    <div class="grid">
+        {% for category in categories %}
+        <div class="card">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description|truncatewords:20|default:"Нет описания" }}</p>
+            <a href="{% url 'productproject:category_detail' category.pk %}">Перейти →</a>
+        </div>
+        {% empty %}
+            <p style="grid-column: 1 / -1; text-align: center; padding: 60px; color: #777;">
+                Пока нет категорий
+            </p>
+        {% endfor %}
+    </div>
+
+    <footer>
+        © 2026 VINYL STORE — Все права защищены
+    </footer>
+</body>
+</html>
